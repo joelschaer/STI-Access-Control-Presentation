@@ -33,14 +33,14 @@
             <textarea data-template>
                 ## Vertical privilege escalation
                 * Arrive lorsqu'un utilisateur utilise des fonction lui permettant d'accéder à un role qui ne lui est pas permis
-                * Par exemple :
+                * Par exemple : un utilisateur arrive a effectuer un fonction administrative alors qu'il a un simple role d'utilisateur.
             </textarea>
         </section>
         <section data-markdown>
             <textarea data-template>
                 ## Horizontal privilege escalation
                 * Arrive lorsqu'un utilisateur peut voir et/ou modifier des resources interdites
-                * Par exemple :
+                * Par exemple : un utilisateur peut voir les message d'un autre utilisateur sur une webmail.
             </textarea>
         </section>
         <section data-markdown>
@@ -53,26 +53,47 @@
         <section data-markdown>
             <textarea data-template>
                 # Fonctionnalités non protégées
+                ### une url cachée ou difficile d'accès ne vous permet pas d'éviter de la sécuriser.
+                * https://wahh-app.com/menus/secure/ff457/DoAdminMenu2.jsp
             </textarea>
         </section>
         <section data-markdown>
             <textarea data-template>
                 ## Accès directe au méthodes
+                ### Dans le cadre d'une api :
+                * http://wahh-app.com/public/securityCheck/getCurrentUserRoles
+                Imaginons que la méthode `getCurrentUserRoles` est accéssible par tous, il faut alors vérifier que cela
+                n'est pas le cas pour d'autre méthodes (getAllUserRoles , getAllRoles) car il serait facile de changer la méthode appelée.
             </textarea>
         </section>
         <section data-markdown>
             <textarea data-template>
                 ## Accès par ID
+                * https://wahh-app.com/ViewDocument.php?docid=1280149120
+                Lorsque l'accès au resources ou aux pages se font via un ID, il est important de vérifier qu'un utilisateur ne peux pas horizontalement
+                accéder à d'autre id dont il ne devrait pas avoir l'accès.
             </textarea>
         </section>
         <section data-markdown>
             <textarea data-template>
                 ## Fonction a étapes multiples
+                Il est important de vérifier à chaque étape que l'utilisateur à le droit d'effectuer la tache demandée et que toutes les étapes soient respéctées.
+
+                Par exemple :
+                *Dans les application de E-banking, les transferts de fond se font en plusieurs étapes. Les données remplies
+                transitent à travers les étapes mais si ces dernières ne sont pas vérifiées à la fin, un attaquant pourrait intercépter la requete POST et modifier le compte source.*
             </textarea>
         </section>
         <section data-markdown>
             <textarea data-template>
                 ## Fichiers statiques
+                Il est commun de donner accès à une ressource après qu'une vérification d'authorisation a été effectuées dans un fonction.
+
+                Par exemple : *Accéder à un E-Book après avoir effectuée le paiement.*
+
+                Il faut alors vérifier que la resource n'est pas accessible sans passer par la méthode parentes.
+
+                https://wahh-books.com/download/9780636628104.pdf
             </textarea>
         </section>
         <section data-markdown>
@@ -82,22 +103,11 @@
         </section>
         <section data-markdown>
             <textarea data-template>
-                ## Models non sécurisés
-            </textarea>
-        </section>
-        <section data-markdown>
-            <textarea data-template>
-                ## Accès par paramètres
-            </textarea>
-        </section>
-        <section data-markdown>
-            <textarea data-template>
-                ## Referer-base Access Control
-            </textarea>
-        </section>
-        <section data-markdown>
-            <textarea data-template>
-                ## control d'accès par localisation
+                ## Méthodes non sécurisés
+                * Controle d'accès par paramètres :
+                 https://wahh-app.com/login/home.jsp?admin=true
+                * Controle d'accès par Entete http : Par exemple : vérifier qu'il vient d'une page "login" et qu'il est donc authorisé. Mais l'entete http est sous le controle de l'utilisateur.
+                * Controle d'accès par localisation : facile à coutourner grace aux proxy, VPN, data roaming ou manipulation de la géolocalisation.
             </textarea>
         </section>
         <section data-markdown>
