@@ -1,6 +1,6 @@
 # Chap. 8, Attacking Access Controls
 
-## Vulnérabilité  commune
+## Types de Vulnérabilités 
 
 Il y a trois grandes catégorie de contrôle d'accès :
   - **verticale** :
@@ -19,7 +19,7 @@ Les trois types d'attaques reliées à ces contrôles d'accès sont :
   - **Business logic exploitation** :
     un utilisateur arrive à exploiter une faille dans l'état actuel de la l'application pour gagner l'accès à des ressources clés, exemple bypasser l'étape de payement
 
-#### Fontionnalité non protégées
+#### Fonctionnalité non protégées
 
 Les pages avec des fonctionnalités particulières comme des pages admin doivent être protégée de l'accès des utilisateurs standard. Une technique pour éviter l'accès des ces pages et de tester le rôle de l'utilisateur est d'ajouter en fonction les boutons d'accès. Il n'y a alors d'autre protection pour l'accès au page protégées que l'affichage visuel d'un bouton permettant d'y accéder.
 Ce genre d'affichage peut être géré côté serveur ou coté client depuis JavaScript.
@@ -33,7 +33,7 @@ Dans le cadre d'un API par exemple il est possible de rendre disponible certaine
 
 Une manière commune d'accès à des données est de passer l'identifiant de la ressource dans l'url. c'est  une manière simple de procéder, mais il faut s'assurer qu'un utilisateur n'ai accès au ressources qui lui sont autorisées. Ce genre de vulnérabilité intervient dans le cadre de la  vulnérabilité horizontale. 
 
-#### Multistage Functions
+#### Fonctions à étapes multiples
 
 La gestion d'application avec des étapes multiples nécessitent une attention particulière. En effet, certaines action vont traverser un certains nombre d'étapes successive pour valider une action. Il faut dans ce cas de figure s'assurer que l'utilisateur et les droits d'effectuer chacune des étapes. On ne peut pas partir du principe qu'il est passé par les étapes précédentes. 
 Pour la modification d'un utilisateur, si on fait la validation d'authentification sur le requête get qui affiche le formulaire mais pas sur la méthode post qui fait la modification. Il est alors possible de n'envoyer que la requête post et donc appliquer la modification directement.
@@ -65,15 +65,15 @@ Le référer indique dans l'entête quelle est la page précédent. Il est alors
 Pour restreindre l'accès à une ressource certaines application se base sur la position géographique d'un utilisateur. On va par exemple restreindre la rediffusion des émissions pour les personnes hors du pays. C'est par exemple ce que fait TFI, pour limiter l'accès au live en ligne. Il suffit alors d'utiliser un proxy ou un VPN pour contourner ce contôle.
 
 ## Attacking Access Controls
-#### Testing with Different User Accounts
+#### Testing avec difféents User Accounts
 
-La meilleure manière et la plus efficace de  tester les contrôle d'accès d'une application est d'utiliser différents compte. Cela permet de déterminer quelle ressource ou fonctionnalité est accéssible par différent type de compte et s'assurer que leurs accès sont légitimes
+La meilleure manière et la plus efficace de  tester les contrôle d'accès d'une application est d'utiliser différents compte. Cela permet de déterminer quelle ressource ou fonctionnalité est accessible par différent type de compte et s'assurer que leurs accès sont légitimes
 
-Certains outils peuvent aider à cela tel que Burp qui permet de  comparer le contenu d'un site web selon différents contextes, on peu ensuite comparer ses derniers.
+Certains outils peuvent aider à cela tel que Burp (spidering) qui permet de  comparer le contenu d'un site web selon différents contextes, on peu ensuite comparer ses derniers.
 
 #### Testing Multistage Processes
 
-La méthode décrite précédement peut se trouve être inéfficace lors du test de certains processus en plusieurs étapes. Dans le cas de multistage, pour effectuer une action l'utilisateur doit en avoir fait d'autre au préalable et celles-ci dans le bon ordre.
+La méthode décrite précédement peut se voir être inefficace lors du test de certains processus en plusieurs étapes. Dans le cas de multistage, pour effectuer une action l'utilisateur doit en avoir fait d'autre au préalable et celles-ci dans le bon ordre.
 
 Donc intérroger les formulaire de manière séparée avec différents comptes peut ne pas donner les résultats attentu car ces action pourraient générer des erreurs.
 
@@ -90,9 +90,9 @@ Pour tester cela, on peut envoyer des requêtes Burp en utilisant la session cou
 
 #### Testing with Limited Access
 
-Lors que on l'on test une application et que notre accès est limité, par exemple que un compte utilisateur à notre disposition, Il va falloir redoubler d'éffort pour tester l'entièreté de l'application. Un fonctionnalité non protégée peut exister sans pour autant se trouver sur notre interface. Par exemple des fonctionnalité prévue pour d'autre utilisateurs, d'anciennes fonctionnalités ou des nouvelles pas encore intégrée.
+Lors que l'on test une application et que notre accès est limité, par exemple que un compte utilisateur à notre disposition, Il va falloir redoubler d'éffort pour tester l'entièreté de l'application. Un fonctionnalité non protégée peut exister sans pour autant se trouver sur notre interface. Par exemple des fonctionnalité prévue pour d'autre utilisateurs, d'anciennes fonctionnalités ou des nouvelles pas encore intégrée.
 
-Pour tester ces choses là nous pouvons utiliser la technique de "Content discovery" expliqué au Chapitre 4.
+Pour tester ces choses là nous pouvons utiliser la technique de "Content discovery" expliquée au Chapitre 4. 
 
 #### Testing Direct Access to Methods
 
